@@ -4,13 +4,15 @@ Promise based cache & memoization utility for usage with Node.js
 
 Promoizer is a small library that essentially works as a cache for
 function calls. A wrapped function will when invoked, stash the results
-in memory. Subsequent calls will then, if called with the same arguments, return the stashed result instead of recalculate. 
+in memory. Subsequent calls will then, if called with the same arguments, 
+return the stashed result instead of recalculate. 
 
 This can be useful in a few cases. Among others:
 - requests for the same network resource (queue and cache)
 - reduce the call stack for recursive functions
 
 Wrapped functions will always return the result wrapped in a promise.
+Any number of functions can share the same promoizer instance. 
 
 ## Features
 
@@ -19,22 +21,27 @@ Wrapped functions will always return the result wrapped in a promise.
 - Memoization
 - Promise based
 
+## Installation
+```
+npm install promoizer
+```
 ## Examples 
 ### Instantiate
 ```
+const Promoizer = require('promoizer')
 // options: maxAge: <milliseconds>, default 0 - never expire.
 const promoize = new Promoizer({ maxAge: 10000 * 60  })
 ``` 
 ### Wrap and call a simple function 
 ```
-const myFunction = Promoize((a, b) => a + b)
+const myFunction = promoize((a, b) => a + b)
 myFunction(3,5).then(console.log)
 ```
 
 ### Wrap and call a network request function
 ```
 const http = require('http')
-const makeGetRequest = Promoize((url) => {
+const makeGetRequest = promoize((url) => {
     let result
     return new Promise((resolve, reject) => {
         http.get(url, (response) => {
@@ -59,7 +66,7 @@ makeGetRequest('http://httpbin.org/get?query=param')
 ### Recursion
 ```    
 // Recursive example rewritten from the original fibonacci
-const mfib = Promoize(
+const mfib = promoize(
     (n) => {
         return n < 2 ? n : mfib(n-1)
             .then(p1 => {
