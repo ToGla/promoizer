@@ -4,7 +4,7 @@ module.exports = function Promoizer({ maxAge=0 }) {
 
     const entries =  {}
 
-    function setExpiration() {
+    function setExpiration(key) {
         return maxAge > 0 ? setTimeout(() => {
             delete entries[key]
         }, maxAge) : null;
@@ -57,12 +57,12 @@ module.exports = function Promoizer({ maxAge=0 }) {
         entries[key] = {
             pending: false,
             result, 
-            purge: setExpiration()
+            purge: setExpiration(key)
         }
         return result
     }
 
-    function memoize(f) {
+    function promoize(f) {
         return (...params) => {
             const key = hash({ f, params })
             if(hasResult(key)) {
@@ -84,5 +84,5 @@ module.exports = function Promoizer({ maxAge=0 }) {
         }
     }
     
-    return memoize
+    return promoize
 }
