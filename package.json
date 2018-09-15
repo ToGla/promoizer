@@ -1,6 +1,6 @@
 {
   "name": "promoizer",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Promise based cache & memoization utility for usage with Node.js",
   "main": "index.js",
   "scripts": {
