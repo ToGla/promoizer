@@ -1,0 +1,25 @@
+{
+  "name": "promoizer",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha ."
+  },
+  "keywords": [
+    "memoization",
+    "cache",
+    "Promise"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "object-hash": "^1.3.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "eslint": "^5.5.0",
+    "mocha": "^5.2.0",
+    "eslint-plugin-mocha": "^5.2.0"
+  }
+}
